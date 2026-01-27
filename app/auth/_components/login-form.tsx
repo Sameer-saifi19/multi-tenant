@@ -14,10 +14,10 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { OauthButton } from "./oauth-btn";
-import { signinEmailAction } from "@/app/actions/user";
+import { signinEmailAction } from "@/app/server/user";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
-import { getAllOrganization } from "@/app/actions/organization";
+import { getAllOrganization } from "@/app/server/organization";
 
 export default function LoginForm() {
   const [isPending, setIsPending] = useState(false);

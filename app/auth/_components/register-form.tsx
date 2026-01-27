@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { OauthButton } from "./oauth-btn";
-import { signupEmailAction } from "@/app/actions/user";
+import { signupEmailAction } from "@/app/server/user";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

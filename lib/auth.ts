@@ -1,11 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import prisma from "./prisma";
-import { sendEmailAction } from "@/app/actions/emails";
+import prisma from "@/lib/prisma";
+import { sendEmailAction } from "@/app/server/emails";
 import { APIError, createAuthMiddleware } from "better-auth/api";
-import { normalizeName, ValidDomains } from "./utils";
+import { normalizeName, ValidDomains } from "@/lib/utils";
 import { organization } from "better-auth/plugins";
+import { ac, admin, member, owner } from "@/lib/permission";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -96,5 +97,12 @@ export const auth = betterAuth({
     },
   },
 
-  plugins: [nextCookies(), organization()],
+  plugins: [nextCookies(), organization({
+    ac,
+    roles: {
+      owner,
+      admin,
+      member
+    }
+  })],
 });

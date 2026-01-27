@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { changePasswordAction } from "@/app/actions/user";
+import { changePasswordAction } from "@/app/server/user";
 
 export const ChangePasswordForm = () => {
   const [isPending, setIsPending] = useState(false);
