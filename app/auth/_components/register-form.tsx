@@ -33,7 +33,7 @@ export default function Registerform() {
 
     if (submit?.status !== 200) {
       setIsPending(false);
-      toast.error("Something went wrong");
+      toast.error("user already exist");
     } else {
       router.push("/auth/verify");
     }

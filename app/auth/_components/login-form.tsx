@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { OauthButton } from "./oauth-btn";
-import {  signinEmailAction } from "@/app/actions/user";
+import { signinEmailAction } from "@/app/actions/user";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
+import { getAllOrganization } from "@/app/actions/organization";
 
 export default function LoginForm() {
   const [isPending, setIsPending] = useState(false);
@@ -29,11 +30,17 @@ export default function LoginForm() {
 
     const formdata = new FormData(evt.currentTarget);
     const submit = await signinEmailAction(formdata);
+    const getOrgData = await getAllOrganization();
     if (submit?.status !== 200) {
       setIsPending(false);
       toast.error("Invalid Email or password");
     } else {
-      router.push(`/dashboard`);
+      const firstOrg = getOrgData.data?.[0];
+      if (getOrgData.data?.length === 0) {
+        router.push("/welcome");
+      } else {
+        router.push(`/dashboard/${firstOrg?.slug}`);
+      }
     }
   }
 

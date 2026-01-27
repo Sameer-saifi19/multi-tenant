@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export default function Page() {
   const { data: organization } = authClient.useListOrganizations();
-
   return (
     <>
       <div className="flex items-center justify-center h-screen">
