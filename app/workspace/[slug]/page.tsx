@@ -1,3 +1,5 @@
+import DeleteOrgBtn from "@/components/global/delete-org-btn";
+import { Button } from "@/components/ui/button";
 
 
 type Props = {
@@ -9,6 +11,7 @@ const page = async ({params}: Props) => {
   return (
     <div>
       {slug}
+      <DeleteOrgBtn/>
     </div>
   )
 }

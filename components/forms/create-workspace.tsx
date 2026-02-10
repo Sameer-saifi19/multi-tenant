@@ -30,7 +30,7 @@ export default function CreateWorkspaceForm() {
     const submit = await createOrganization(formdata);
     if (submit?.status === 201) {
       toast.success("workspace created")
-      router.push("/dashboard");
+      router.push("/workspace");
     } else {
       toast.error("error creating organization");
     }

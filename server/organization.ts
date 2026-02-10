@@ -25,7 +25,7 @@ export const createOrganization = async (values: FormData) => {
       headers: await headers(),
     });
 
-    revalidatePath('/organization')
+    revalidatePath("/organization");
 
     if (data) {
       return { status: 201, message: "success" };
@@ -50,3 +50,22 @@ export const getAllOrganization = async () => {
   }
 };
 
+export const getAllOrganizationMembers = async () => {
+  const session = await checkSession();
+
+  const data = await auth.api.listMembers({
+    query: {
+      organizationId: session?.session.activeOrganizationId as string,
+      limit: 20,
+      offset: 0,
+      sortBy: "createdAt",
+      sortDirection: "desc",
+      filterField: "createdAt",
+      filterOperator: "eq",
+      filterValue: "value",
+    },
+    headers: await headers(),
+  });
+
+  return data
+};

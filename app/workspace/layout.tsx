@@ -1,3 +1,4 @@
+import WorkspaceNavbar from "@/components/global/navbar";
 import DashboardSidebar from "@/components/global/sidebar/index";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
@@ -8,12 +9,13 @@ type Props = {
 
 const DashboardLayout = ({ children }: Props) => {
   return (
-    <div className="grid grid-cols-[250px]">
-      <SidebarProvider>
-        <div>
-          <DashboardSidebar />
-        </div>
-        <div>{children}</div>
+    <div>
+      <SidebarProvider >
+        <DashboardSidebar />
+        <main className="w-full">
+          <WorkspaceNavbar />
+          <div className="px-4">{children}</div>
+        </main>
       </SidebarProvider>
     </div>
   );

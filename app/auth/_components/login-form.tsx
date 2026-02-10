@@ -39,7 +39,7 @@ export default function LoginForm() {
       if (getOrgData.data?.length === 0) {
         router.push("/create-workspace");
       } else {
-        router.push(`/dashboard/${firstOrg?.slug}`);
+        router.push(`/workspace/${firstOrg?.slug}`);
       }
     }
   }
