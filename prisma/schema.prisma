@@ -55,6 +55,7 @@ model Organization {
   @@map("organizations")
 }
 
+
 model Member {
   id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   organizationId String   @db.Uuid

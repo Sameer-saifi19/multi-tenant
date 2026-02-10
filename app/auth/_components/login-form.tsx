@@ -37,7 +37,7 @@ export default function LoginForm() {
     } else {
       const firstOrg = getOrgData.data?.[0];
       if (getOrgData.data?.length === 0) {
-        router.push("/onboarding");
+        router.push("/create-workspace");
       } else {
         router.push(`/dashboard/${firstOrg?.slug}`);
       }

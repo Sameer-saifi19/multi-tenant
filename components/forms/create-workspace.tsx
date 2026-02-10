@@ -7,12 +7,11 @@ import { Input } from "../ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "../ui/label";
 import { OrganizationInput, organizationSchema } from "@/schema/organization";
-import { createOrganization } from "@/server/organization";
+import { createOrganization, getAllOrganization } from "@/server/organization";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useState } from "react";
 
-export default function OrgComponent() {
+export default function CreateWorkspaceForm() {
   const router = useRouter();
 
   const {
@@ -30,7 +29,8 @@ export default function OrgComponent() {
 
     const submit = await createOrganization(formdata);
     if (submit?.status === 201) {
-      router.push("/organization");
+      toast.success("workspace created")
+      router.push("/dashboard");
     } else {
       toast.error("error creating organization");
     }
@@ -44,10 +44,10 @@ export default function OrgComponent() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <CardHeader>
                 <h2 className="text-xl text-center font-semibold mb-1">
-                  Create organization
+                  Create Workspace
                 </h2>
                 <p className="text-sm  text-center text-muted-foreground mb-6">
-                  Set up your team workspace
+                  Set up your team's workspace
                 </p>
               </CardHeader>
               <CardContent>
