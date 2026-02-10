@@ -28,8 +28,8 @@ model Project {
   id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title          String
   description    String
-  userId         String       @db.Uuid()
-  organizationId String       @db.Uuid()
+  userId         String       @db.Uuid
+  organizationId String       @db.Uuid
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)

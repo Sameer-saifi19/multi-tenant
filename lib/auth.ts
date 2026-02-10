@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import prisma from "@/lib/prisma";
-import { sendEmailAction } from "@/app/server/emails";
+import { sendEmailAction } from "@/server/emails";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { normalizeName, ValidDomains } from "@/lib/utils";
 import { organization } from "better-auth/plugins";
@@ -97,12 +97,15 @@ export const auth = betterAuth({
     },
   },
 
-  plugins: [nextCookies(), organization({
-    ac,
-    roles: {
-      owner,
-      admin,
-      member
-    }
-  })],
+  plugins: [
+    nextCookies(),
+    organization({
+      ac,
+      roles: {
+        owner,
+        admin,
+        member,
+      },
+    }),
+  ],
 });

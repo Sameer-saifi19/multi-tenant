@@ -1,4 +1,4 @@
-import DashboardSidebar from "@/components/global/dashboard-sidebar";
+import DashboardSidebar from "@/components/global/sidebar/index";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 

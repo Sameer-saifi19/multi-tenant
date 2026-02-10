@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "saas",
   "version": "0.1.0",
   "private": true,
@@ -6,7 +7,8 @@
     "dev": "prisma generate && next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker": "docker start c1f2c7e645ed9520142745fde9cc4ff11a63352dbc42d7cf95255292eec67997"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

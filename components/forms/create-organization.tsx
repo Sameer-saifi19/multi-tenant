@@ -7,7 +7,7 @@ import { Input } from "../ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "../ui/label";
 import { OrganizationInput, organizationSchema } from "@/schema/organization";
-import { createOrganization } from "@/app/server/organization";
+import { createOrganization } from "@/server/organization";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useState } from "react";

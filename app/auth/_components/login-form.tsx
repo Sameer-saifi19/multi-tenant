@@ -14,10 +14,10 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { OauthButton } from "./oauth-btn";
-import { signinEmailAction } from "@/app/server/user";
+import { signinEmailAction } from "@/server/user";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
-import { getAllOrganization } from "@/app/server/organization";
+import { getAllOrganization } from "@/server/organization";
 
 export default function LoginForm() {
   const [isPending, setIsPending] = useState(false);
@@ -37,7 +37,7 @@ export default function LoginForm() {
     } else {
       const firstOrg = getOrgData.data?.[0];
       if (getOrgData.data?.length === 0) {
-        router.push("/welcome");
+        router.push("/onboarding");
       } else {
         router.push(`/dashboard/${firstOrg?.slug}`);
       }
