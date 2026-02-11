@@ -7,6 +7,7 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import { normalizeName, ValidDomains } from "@/lib/utils";
 import { organization } from "better-auth/plugins";
 import { ac, admin, member, owner } from "@/lib/permission";
+import { getActiveOrganization } from "@/server/organization";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -67,6 +68,22 @@ export const auth = betterAuth({
     database: {
       generateId: false,
     },
+  },
+  databaseHooks:{
+    session:{
+      create:{
+        before: async (session) => {
+
+          const organization = await getActiveOrganization(session.id)
+          return {
+            data: {
+              ...session,
+              activeOrganizationId: organization?.id
+            }
+          }
+        }
+      }
+    }
   },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {

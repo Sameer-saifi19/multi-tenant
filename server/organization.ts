@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { checkSession } from "./user";
 import { revalidatePath } from "next/cache";
+import prisma from "@/lib/prisma";
 
 export const createOrganization = async (values: FormData) => {
   const name = values.get("name") as string;
@@ -69,3 +70,23 @@ export const getAllOrganizationMembers = async () => {
 
   return data
 };
+
+export const getActiveOrganization = async (userId: string) => {
+  const member = await prisma.member.findFirst({
+    where:{
+      userId
+    }
+  })
+
+  if(!member){
+    return null 
+  }
+
+  const activeOrganization = await prisma.organization.findFirst({
+    where:{
+      id: member.organizationId
+    }
+  })
+
+  return activeOrganization
+}

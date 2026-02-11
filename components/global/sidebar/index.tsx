@@ -1,4 +1,5 @@
-import { checkSession } from "@/server/user";
+"use client"
+
 import {
   Sidebar,
   SidebarContent,
@@ -10,49 +11,16 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 
-import {
-  LayoutDashboard,
-  ListCheck,
-  Settings,
-  User2,
-  Users,
-  Users2Icon,
-} from "lucide-react";
+import { User2 } from "lucide-react";
 import Image from "next/image";
-import WorkspaceSwitcher from "../workspace-switcher";
 import Link from "next/link";
+import { SidebarMenuItems } from "./menu-items";
+import { authClient } from "@/lib/auth-client";
 
-const SidebarMenuItems = [
-  {
-    title: "Dashboard",
-    url: "/workspace",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Workspaces",
-    url: "/workspace",
-    icon: Users,
-  },
-  {
-    title: "My Tasks",
-    url: "/workspace",
-    icon: ListCheck,
-  },
-  {
-    title: "Members",
-    url: "/workspace",
-    icon: Users2Icon,
-  },
-  {
-    title: "Settings",
-    url: "/workspace",
-    icon: Settings,
-  },
-];
-
-export default async function DashboardSidebar() {
-  const session = await checkSession();
-
+export default function DashboardSidebar() {
+  const { data: session } = authClient.useSession();
+  const { data: activeOrganization } = authClient.useActiveOrganization();
+  const menuItems = SidebarMenuItems(activeOrganization?.slug as string)
   return (
     <>
       <Sidebar>
@@ -64,11 +32,11 @@ export default async function DashboardSidebar() {
         </SidebarHeader>
         <SidebarSeparator />
         <SidebarContent>
-          {SidebarMenuItems.map((item) => (
+          {menuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
                 <Link href={item.url}>
-                  <item.icon />
+                  {item.icon}
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
