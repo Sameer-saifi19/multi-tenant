@@ -1,5 +1,6 @@
 import {
   inferAdditionalFields,
+  inferOrgAdditionalFields,
   organizationClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
@@ -17,6 +18,7 @@ export const authClient = createAuthClient({
         member,
         owner,
       },
+      schema: inferOrgAdditionalFields<typeof auth>()
     }),
   ],
 });

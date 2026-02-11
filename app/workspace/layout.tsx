@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }: Props) => {
         <DashboardSidebar />
         <main className="w-full">
           <WorkspaceNavbar />
-          <div className="px-4">{children}</div>
+          <div className="px-10">{children}</div>
         </main>
       </SidebarProvider>
     </div>

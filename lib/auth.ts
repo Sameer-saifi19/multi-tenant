@@ -123,6 +123,17 @@ export const auth = betterAuth({
         admin,
         member,
       },
+      schema:{
+        organization:{
+          additionalFields:{
+            description: {
+              type: "string",
+              input: true,
+              required: false
+            }
+          }
+        }
+      }
     }),
   ],
 });

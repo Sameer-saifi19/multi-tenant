@@ -21,7 +21,7 @@ export const createOrganization = async (values: FormData) => {
         slug: formattedSlug,
         logo: "hello.com",
         userId: session?.session.userId,
-        keepCurrentActiveOrganization: false,
+        keepCurrentActiveOrganization: true,
       },
       headers: await headers(),
     });
