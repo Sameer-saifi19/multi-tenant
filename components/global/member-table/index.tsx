@@ -7,29 +7,45 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllOrganizationMembers } from "@/server/organization";
+import Image from "next/image";
 
-export default async function MemberTable() {
+type Props = {
+  avatarUrl: string;
+  name: string;
+  email: string;
+  role: "admin" | "owner" | "user";
+};
+
+export default function MemberTable({ avatarUrl, name, email, role }: Props) {
   return (
     <>
-      <div className="p-30 flex flex-col gap-4 h-screen">
-        <h1 className="text-2xl font-semibold text-center">ALL ORGANIZATION</h1>
+      <div className="flex flex-col gap-4 h-screen">
         <Table>
           <TableCaption>A list of all members.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-25">Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
+              <TableHead className="text-start pr-0" >Avatar</TableHead>
+              <TableHead className="px-4" >Name</TableHead>
+              <TableHead className="px-2" >Email</TableHead>
+              <TableHead className="px-2" >Role</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium">invoice</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
+              <TableCell>
+                <Image
+                  width={30}
+                  height={30}
+                  alt="member-avatar"
+                  className="w-8 h-8 rounded-full"
+                  src={avatarUrl}
+                ></Image>
+              </TableCell>
+              <TableCell>{name}</TableCell>
+              <TableCell>{email}</TableCell>
+              <TableCell>{role}</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableBody>
         </Table>

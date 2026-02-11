@@ -38,7 +38,7 @@ export default function WorkspaceSwitcher() {
   return (
     <>
       <Select onValueChange={handleValueChange}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full max-w-2xl">
           <SelectValue placeholder="Select workspace" />
         </SelectTrigger>
         <SelectContent position="popper">

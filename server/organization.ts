@@ -9,6 +9,7 @@ import prisma from "@/lib/prisma";
 export const createOrganization = async (values: FormData) => {
   const name = values.get("name") as string;
   const slug = values.get("slug") as string;
+  const description = values.get("description") as string;
 
   const formattedSlug = slug.toLowerCase().trim().replace(/\s+/g, "-");
 
@@ -19,6 +20,7 @@ export const createOrganization = async (values: FormData) => {
       body: {
         name: name,
         slug: formattedSlug,
+        description: description ?? "",
         logo: "hello.com",
         userId: session?.session.userId,
         keepCurrentActiveOrganization: true,
@@ -68,25 +70,44 @@ export const getAllOrganizationMembers = async () => {
     headers: await headers(),
   });
 
-  return data
+  return data;
 };
 
 export const getActiveOrganization = async (userId: string) => {
   const member = await prisma.member.findFirst({
-    where:{
-      userId
-    }
-  })
+    where: {
+      userId,
+    },
+  });
 
-  if(!member){
-    return null 
+  if (!member) {
+    return null;
   }
 
   const activeOrganization = await prisma.organization.findFirst({
-    where:{
-      id: member.organizationId
-    }
-  })
+    where: {
+      id: member.organizationId,
+    },
+  });
 
-  return activeOrganization
-}
+  return activeOrganization;
+};
+
+export const getOrganizationMembers = async (orgId: string) => {
+  try {
+    const membersData = await prisma.user.findMany({
+      include: {
+        members: true
+      }
+    })
+
+    const extract = membersData.map((item) => {
+      return item
+    })
+
+    return extract
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+};

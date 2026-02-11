@@ -30,11 +30,12 @@ import { createOrganization } from "@/server/organization";
 import { toast } from "sonner";
 import { PlusCircleIcon } from "lucide-react";
 import { FieldDescription } from "../ui/field";
+import { Textarea } from "../ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, "Organization name must be at least 2 characters"),
-  slug: z
-    .string()
+  slug: z.string().min(2, "slug should be more than 2 characters"),
+  description: z.string()
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -47,6 +48,7 @@ export function CreateOrganizationDialog() {
     defaultValues: {
       name: "",
       slug: "",
+      description: "",
     },
   });
 
@@ -55,13 +57,14 @@ export function CreateOrganizationDialog() {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("slug", values.slug);
+      formData.append("description", values.description)
 
       const result = await createOrganization(formData);
-        if(result?.status === 201){
-            toast.success("Workspace created")
-        }else{
-            toast.error("Error creating new workspace")
-        }
+      if (result?.status === 201) {
+        toast.success("Workspace created");
+      } else {
+        toast.error("Error creating new workspace");
+      }
       setOpen(false);
       form.reset();
     } catch (error) {
@@ -72,7 +75,10 @@ export function CreateOrganizationDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-blue-600 text-white hover:bg-blue-700"> <PlusCircleIcon/> Create Workspace</Button>
+        <Button className="bg-blue-600 text-white hover:bg-blue-700">
+          {" "}
+          <PlusCircleIcon /> Create Workspace
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-106.25">
@@ -81,7 +87,10 @@ export function CreateOrganizationDialog() {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 mt-4"
+          >
             <FormField
               control={form.control}
               name="name"
@@ -98,6 +107,20 @@ export function CreateOrganizationDialog() {
 
             <FormField
               control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="my personal workspace"  {...field}/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="slug"
               render={({ field }) => (
                 <FormItem>
@@ -105,14 +128,19 @@ export function CreateOrganizationDialog() {
                   <FormControl>
                     <Input placeholder="acme-inc" {...field} />
                   </FormControl>
-                  <FieldDescription>Slug is used as unique identifier for this workspace</FieldDescription>
+                  <FieldDescription>
+                    Slug is used as unique identifier for this workspace
+                  </FieldDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
+            
             <DialogFooter>
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
                 Create Workspace
               </Button>
             </DialogFooter>

@@ -10,13 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut, Settings, User } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeToggle } from "@/components/theme/theme-switcher";
 
 export default function WorkspaceNavbar() {
   return (
     <>
-      <nav className="p-4 flex items-center justify-between sticky top-0 bg-sidebar-accent z-10 ">
+      <nav className="p-4 flex items-center justify-between sticky top-0 bg-sidebar z-10 border-sidebar-ring ">
         <SidebarTrigger/>
         <div className="flex items-center gap-4">
+          <ThemeToggle/>
           <WorkspaceSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger>

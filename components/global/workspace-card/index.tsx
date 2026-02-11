@@ -41,7 +41,7 @@ export function WorkspaceCard({
     <Card className="w-full max-w-xl rounded-xl shadow-sm hover:shadow-md transition">
       <CardHeader>
         <div className="flex items-center gap-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-orange-500 text-white font-semibold">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-blue-500 text-white font-semibold">
             {name.charAt(0).toUpperCase()}
           </div>
           <div>

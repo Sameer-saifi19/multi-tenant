@@ -18,7 +18,7 @@ export default async function Page() {
           <WorkspaceCard
             key={item.id}
             name={item.name}
-            description={item.description ?? "my personal workspace"}
+            description={item.description ?? "No description"}
             createdAt={item.createdAt}
           />
         ))}
