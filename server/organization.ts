@@ -93,21 +93,3 @@ export const getActiveOrganization = async (userId: string) => {
   return activeOrganization;
 };
 
-export const getOrganizationMembers = async (orgId: string) => {
-  try {
-    const membersData = await prisma.user.findMany({
-      include: {
-        members: true
-      }
-    })
-
-    const extract = membersData.map((item) => {
-      return item
-    })
-
-    return extract
-  } catch (error) {
-    console.error(error)
-    return null
-  }
-};
