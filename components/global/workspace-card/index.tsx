@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
+import { getAllOrganization } from "@/server/organization";
 import { Edit } from "lucide-react";
 import Link from "next/link";
 
@@ -17,13 +18,16 @@ type WorkspaceCardProps = {
   name: string;
   description: string;
   createdAt: Date | string;
+  orgSlug: string
 };
 
 export function WorkspaceCard({
   name,
   description,
   createdAt,
+  orgSlug
 }: WorkspaceCardProps) {
+
   const formattedDate = new Date(createdAt)
     .toLocaleString("en-US", {
       month: "long",
@@ -35,7 +39,6 @@ export function WorkspaceCard({
     })
     .replace("AM", "am")
     .replace("PM", "pm");
-    const {data: session} = authClient.useSession()
 
   return (
     <Card className="w-full max-w-xl rounded-xl shadow-sm hover:shadow-md transition">
@@ -51,7 +54,7 @@ export function WorkspaceCard({
         </div>
 
         <CardAction>
-          <Link href={`/workspace/${session?.session.activeOrganizationId}/edit`}>
+          <Link href={`/workspace/${orgSlug}/edit-workspace`}>
             <Button variant="ghost" size="icon-sm">
               <Edit />
             </Button>

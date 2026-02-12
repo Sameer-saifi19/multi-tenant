@@ -16,6 +16,7 @@ export default async function Page() {
       <div className="grid grid-cols-3 gap-6 mt-8 w-full">
         {organizations.data?.map((item) => (
           <WorkspaceCard
+            orgSlug={organizations.data[0].slug}
             key={item.id}
             name={item.name}
             description={item.description ?? "No description"}

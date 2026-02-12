@@ -93,3 +93,27 @@ export const getActiveOrganization = async (userId: string) => {
   return activeOrganization;
 };
 
+export const updateOrganization = async (orgId: string, formData: FormData) => {
+  const name = formData.get("name") as string;
+  const slug = formData.get("slug") as string;
+
+  try {
+    const data = await auth.api.updateOrganization({
+      body: {
+        data: {
+          name: name,
+          slug: slug,
+        },
+        organizationId: orgId,
+      },
+      headers: await headers(),
+    });
+
+    if (data) {
+      return { status: 200, message: "Org updated successfully" };
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
